@@ -1,0 +1,8 @@
+# Ignore the build artifacts.
+rpi-build
+
+# Ignore everything inside sources (except meta-user)
+sources/*
+!sources/meta-user
+
+**/*.swp
