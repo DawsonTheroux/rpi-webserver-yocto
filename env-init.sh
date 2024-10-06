@@ -33,3 +33,5 @@ sed -i "/^.*meta-yocto-bsp/a\  ${project_dir}/sources/meta-openembedded/meta-oe 
 
 sed -i '/synaptics-killswitch/d' ${local_conf}
 echo 'LICENSE_FLAGS_ACCEPTED = "synaptics-killswitch"' >> ${local_conf}
+
+# Limit nodejs-native and nodejs to not use up all of the system memory

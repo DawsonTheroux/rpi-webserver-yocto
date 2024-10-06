@@ -1,0 +1,7 @@
+[Unit]
+Description=Startup Portfolio Server
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/portfolio-website/start-portfolio-website

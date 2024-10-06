@@ -1,0 +1,5 @@
+#!/bin/sh
+cd /opt/portfolio-website
+node server.js &
+
+echo "Portfolio-website started!!"

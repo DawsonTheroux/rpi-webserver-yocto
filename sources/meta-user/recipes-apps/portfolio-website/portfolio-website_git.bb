@@ -124,18 +124,24 @@ LIC_FILES_CHKSUM = "file://node_modules/@babel/helper-validator-identifier/LICEN
 SRC_URI = " \
     git://git@github.com/DawsonTheroux/myWebsite.git;protocol=ssh;branch=master \
     npmsw://${THISDIR}/${BPN}/npm-shrinkwrap.json \
+    npm://registry.npmjs.org/;package=request;version=latest;subdir=node_modules/request \
+    file://start-portfolio-website \
     "
 
 
 RDEPENDS:${PN} += " nodejs "
 # Modify these as desired
 PV = "1.0.0+git"
-SRCREV = "b52b2ec4a0b2da3d6c14a8f7e4cf01f787f32d6e"
+# SRCREV = "f1c04733be4bfdd65eae176b81a4c5a597289b63"
+SRCREV = "${AUTOREV}"
 
 S = "${WORKDIR}/git"
 
-inherit npm
+inherit npm update-rc.d
 addtask compile before do_install after do_configure
+
+INITSCRIPT_NAME = "start-portfolio-website"
+INITSCRIPT_PARAMS = "start 99 S ."
 
 do_compile() {
     cd ${S}
@@ -146,9 +152,22 @@ do_install() {
     install -d ${D}/opt/portfolio-website
     cp -r ${S}/* ${D}/opt/portfolio-website/
     cp -r ${S}/node_modules ${D}/opt/portfolio-website/
+
+    install -d ${D}${sysconfdir}/init.d
+    install -m 0755 ${WORKDIR}/start-portfolio-website ${D}${sysconfdir}/init.d/start-portfolio-website
+
+    #install -d ${D}${systemd_system_unitdir}
+    #install -m 0644 ${WORKDIR}/portfolio-website.service ${D}${systemd_system_unitdir}
+    #install -m 0755 ${WORKDIR}/start-portfolio-website.sh ${D}/opt/portfolio-website/start-portfolio-website.sh
+    #install -d ${D}${sysconfdir}
+    #install -m 0755 ${WORKDIR}/start-portfolio-website.sh ${D}${sysconfdir}/start-portfolio-website.sh
 }
 
+#INITSCRIPT_NAME = "start-portfolio-website.sh"
+#INITSCRIPT_PARAMS = "defaults 0 85"
 FILES:${PN} += "/opt/portfolio-website"
+FILES:${PN} += "${sysconfdir}/*"
+#SYSTEMD_SERVICE:${PN} = "porfolio-website.service"
 
 LICENSE:${PN}-babel-helper-validator-identifier = "MIT"
 LICENSE:${PN}-babel-parser = "MIT"
