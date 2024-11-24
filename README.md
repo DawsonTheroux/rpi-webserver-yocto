@@ -13,3 +13,6 @@ Goals:
 	2. Pull the dependency repositories with the setup-repos.sh script.
 	3. Initilize the environment with the env-init.sh script
 	4. Build the project with the ../build.sh script.
+
+## Flash instructions
+	Once the build is complete, an SD card image is created in the rpi-build/artifacts/ directory

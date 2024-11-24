@@ -4,4 +4,5 @@ IMAGE_INSTALL:append = " \
 		nginx \
 		openssh \
 		portfolio-website \
+		fb-game-of-life \
 		"	
